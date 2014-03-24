@@ -1,5 +1,5 @@
-class Player < ActiveRecord::Base
-
+class Player
+  
   after_initialize do
     @scores = []
     @answers = []
