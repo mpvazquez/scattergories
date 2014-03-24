@@ -1,5 +1,5 @@
-require 'spec_helper'
+# require 'spec_helper'
 
-describe GamesController do
+# describe GamesController do
 
-end
+# end
