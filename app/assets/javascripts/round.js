@@ -107,7 +107,7 @@ Round.prototype.autoRejectAnswers = function() {
 
 Round.prototype.usersJudgeAnswers = function() {
 
-  for(var i = 1; i < 13; i++) {
+  for(var i = 0; i < 13; i++) {
     var button = $("<button>").text("Reject");
     button.addClass("reject-button");
     button.attr("id", "reject-" + i);
