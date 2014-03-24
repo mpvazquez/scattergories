@@ -9,9 +9,14 @@ Scattergories::Application.routes.draw do
 
   get "rounds/finalize", to: "rounds#finalize_answers"
 
-  resources :rounds, only: [:show, :create] do
-    # resources :players, only: [:create]
-  end
+  resources :rounds, only: [:show, :create]
   
+  # resources :games, shallow: true do
+  #   resources :players, only: [:create]
+  #   resources :rounds, only: [:show, :create] do
+  #     resources :players, except: [:new,:create]
+  #   end
+  # end
+
   #mount Redis::Engine, at: "/redis"
 end

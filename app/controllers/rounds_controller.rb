@@ -9,7 +9,6 @@ class RoundsController < ApplicationController
 
   def create
     @round = Round.create
-    @round.after_initialize
     redirect_to round_path(@round)
   end
 
@@ -18,11 +17,13 @@ class RoundsController < ApplicationController
   end
 
   def get_letter
-    @letter = @round.random_letter_die
-    render json: {letter: @letter}
+    letter = @round.letter
+    # binding.pry
+    render json: {letter: letter}
   end
 
   def auto_reject
+    # binding.pry
     @scores = @round.auto_reject(params["answers"])
     render json: {scores: @scores}
   end
