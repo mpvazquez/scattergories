@@ -18,7 +18,7 @@ Round.prototype.setRoundLetter = function(letter){
   if (this.letter === "") {
     this.letter = letter;
   } else {
-    throw "Letter already set."
+    throw "Letter already set.";
   }
 };
 
@@ -57,16 +57,19 @@ Round.prototype.autoRejectAnswer = function(answerNumber, answerText) {
   }
 };
 
+// Let the player score an answer as 0 or 1
 Round.prototype.scoreAnswer = function(answerNumber, score) {
-  this.scores[answerNumber] = score;
+  if (score === 0 || score === 1) {
+    this.scores[answerNumber] = score;
+  }
 };
 
+// Sum up the scores of individual answers to get the player's final score for the round
 Round.prototype.sumFinalScore = function() {
   for(var i = 0; i < 12; i++) {
     this.finalScore += this.scores[i];
   }
 };
-
 
 
 
