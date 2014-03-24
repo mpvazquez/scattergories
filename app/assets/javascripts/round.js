@@ -57,7 +57,7 @@ Round.prototype.autoRejectAnswer = function(answerNumber, answerText) {
   }
 };
 
-// Let the player score an answer as 0 or 1
+// Player scores an answer as 0 or 1
 Round.prototype.scoreAnswer = function(answerNumber, score) {
   if (score === 0 || score === 1) {
     this.scores[answerNumber] = score;
@@ -67,10 +67,9 @@ Round.prototype.scoreAnswer = function(answerNumber, score) {
 // Sum up the scores of individual answers to get the player's final score for the round
 Round.prototype.sumFinalScore = function() {
   for(var i = 0; i < 12; i++) {
-    this.finalScore += this.scores[i];
+    this.finalScore += parseInt(this.scores[i]);
   }
 };
-
 
 
 // Function to take the User's answers from the input fields and store them in the Round constructor function's answers array
@@ -200,7 +199,6 @@ Round.prototype.setFinalScore = function() {
   //     // rejectBadAnswers();
   //   }
   // });
-
 
 // Round.prototype.render = function(){
 //   // grab an element on the DOM

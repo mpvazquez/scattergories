@@ -30,6 +30,8 @@ class Round < ActiveRecord::Base
   def auto_reject(answers)
     self.after_initialize
     (0..11).each do |index|
+
+      # TODO Record each answer on Redis
       if answers[index].to_s == "" || answers[index].to_s.first != $letter
           self.set_score(index, 0)
       else
@@ -39,7 +41,16 @@ class Round < ActiveRecord::Base
     self.scores
   end
 
+  def finalize_answers(scores)
+    self.after_initialize
+    (0..11).each do |index|
+      self.set_score(index, scores[index])
+    end
+    self.scores
+  end
+
   def set_score(index, score)
+    # TODO Record each answer's current score on Redis
     self.scores[index] = score
   end
 
