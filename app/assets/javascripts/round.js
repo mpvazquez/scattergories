@@ -4,7 +4,7 @@ function Round(categoryList){
   // }
   this.letter = "";
   this.categoryList = categoryList;
-  this.timeLeft = 6;
+  this.timeLeft = 3;
   this.answers = [];
   this.answersObject = {};
   this.scores = [];
@@ -73,8 +73,8 @@ Round.prototype.sumFinalScore = function() {
 // Function to take the User's answers from the input fields and store them in the Round constructor function's answers array
 Round.prototype.getAnswers = function() {
   for(var i = 0; i < 12; i++) {
-    this.answers.push($('#answer-' + (i+1)).val());
-    this.answersObject[i] = $('#answer-' + (i+1)).val();
+    this.answers.push($('#answer-' + (i)).val());
+    this.answersObject[i] = $('#answer-' + (i)).val();
   }
   console.log(this.answers);
   console.log(this.answersObject);
@@ -85,18 +85,18 @@ Round.prototype.getAnswers = function() {
 //    1)  Score blank answers as 0
 //    2)  Score answers that don't start with the proper letter as 0
 Round.prototype.autoRejectAnswers = function() {
+  console.log(this.scores);
   $.ajax({
     dataType: "json",
     url: "auto_reject",
     data: {answers: this.answersObject, id: window.location.pathname.replace("/rounds/", "")},
     success: function(success) {
-      console.log(success);
       for (var j = 0; j < 12; j++) {
-        round.scores[j] = success["scores"][j];
+        this.scores[j] = success["scores"][j];
       }
-      round.usersJudgeAnswers();
-      round.updateRejectedStyles();
-      round.finishScoring();
+      // round.usersJudgeAnswers();
+      // round.updateRejectedStyles();
+      // round.finishScoring();
       // rejectBadAnswers();
     }
   });
@@ -209,13 +209,3 @@ Round.prototype.setFinalScore = function() {
 // Round.prototype.synchronize = function(){
 //  $.ajax();
 // };
-
-
-
-
-
-
-
-
-
-
