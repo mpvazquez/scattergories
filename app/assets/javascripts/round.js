@@ -1,6 +1,6 @@
 function Round(categoryList){
   // if (category === undefined) {
-  //  throw "No category error.";
+  //   throw "No category error.";
   // }
   this.letter = "";
   this.categoryList = categoryList;
@@ -73,10 +73,10 @@ Round.prototype.sumFinalScore = function() {
 
 
 // Round.prototype.render = function(){
-//  // grab an element on the DOM
-//  // create all of the elements for the round
-//  // hook these elements on to the DOM via the first element you grabbed
-//  $();
+//   // grab an element on the DOM
+//   // create all of the elements for the round
+//   // hook these elements on to the DOM via the first element you grabbed
+//   $();
 // };
 
 // Round.prototype.synchronize = function(){
