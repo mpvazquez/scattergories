@@ -82,13 +82,3 @@ Round.prototype.sumFinalScore = function() {
 // Round.prototype.synchronize = function(){
 //  $.ajax();
 // };
-
-
-
-
-
-
-
-
-
-

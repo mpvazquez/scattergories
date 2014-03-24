@@ -1,9 +1,9 @@
 class Round < ActiveRecord::Base
   belongs_to :game
   
-  def after_initialize
-    @scores = []
-  end
+  # def after_initialize
+  #   @scores = []
+  # end
 
   def after_initialize_letter
     @letter
@@ -15,6 +15,7 @@ class Round < ActiveRecord::Base
     @random_letter = alphabet - unused_letters
     self.after_initialize_letter
     $letter = @random_letter.sample
+    $redis.HSET(round.id, "letter", @letter);
   end
 
   # def set_letter(round_letter)
@@ -26,41 +27,9 @@ class Round < ActiveRecord::Base
     @letter
   end
 
-
-  def auto_reject(answers)
-    self.after_initialize
-    (0..11).each do |index|
-
-      # TODO Record each answer on Redis
-      if answers[index].to_s == "" || answers[index].to_s.first != $letter
-          self.set_score(index, 0)
-      else
-        self.set_score(index, 1)
-      end
-    end
-    self.scores
-  end
-
-  def finalize_answers(scores)
-    self.after_initialize
-    (0..11).each do |index|
-      self.set_score(index, scores[index])
-    end
-    self.scores
-  end
-
-  def set_score(index, score)
-    # TODO Record each answer's current score on Redis
-    self.scores[index] = score
-  end
-
-  def scores
-    @scores
-  end
-
   def pick_category
     @pick_category = $redis.smembers("all_categories").sample
-    
+    $redis.HSET(round.id, "category", @pick_category)
     return $redis.smembers(@pick_category)
   end
 
