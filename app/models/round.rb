@@ -26,6 +26,7 @@ class Round < ActiveRecord::Base
   end
 
   def letter=(letter)
+    binding.pry
     $redis.hset(self.id, "letter", letter)
     @letter = letter
   end
@@ -66,7 +67,7 @@ class Round < ActiveRecord::Base
 
   def pick_category
     @pick_category = $redis.smembers("all_categories").sample
-    $redis.HSET(round.id, "category", @pick_category)
+    $redis.HSET(self.id, "category", @pick_category)
     return $redis.smembers(@pick_category)
   end
 
