@@ -1,36 +1,23 @@
 class Round < ActiveRecord::Base
   belongs_to :game
-  
-  # def after_initialize
-  #   @scores = []
-  # end
 
   attr_accessor :letter_set
 
   after_initialize do |user|
-    @scores = []
+    @scores = {}
     alphabet = ("a".."z").to_a
     unused_letters = ["q", "u", "v", "x", "y", "z"]
-
-    # @random_letter = alphabet - unused_letters
-    # self.after_initialize_letter
-    # $letter = @random_letter.sample
-    # $redis.HSET(round.id, "letter", @letter);
     @letter_set = alphabet - unused_letters
+
     @number = 1
     @letter
   end
-
-  # def player=(player)
-  #   @player = $redis.HSET(self.id, "player#{player}")
-  # end
 
   def letter
     @letter = $redis.hget(self.id, "letter") || random_letter_die
   end
 
   def letter=(letter)
-    # binding.pry
     $redis.hset(self.id, "letter", letter)
     @letter = letter
     binding.pry
@@ -49,6 +36,10 @@ class Round < ActiveRecord::Base
       else
         self.set_score(index, 1)
       end
+      
+      $redis.HSET(self.id, "player#{player}", self.scores[index])
+      $redis.HSET(self.id, "player#{player}", answers[index].to_s)
+      binding.pry
     end
     self.scores
   end
@@ -75,6 +66,4 @@ class Round < ActiveRecord::Base
     $redis.HSET(self.id, "category", @pick_category)
     return $redis.smembers(@pick_category)
   end
-
-  
 end

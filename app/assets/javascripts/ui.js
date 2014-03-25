@@ -51,18 +51,21 @@ $(document).ready(function(){
     if (round.timeLeft === 0) {  
       timer.attr("disabled", true);
       
+      //TODO the below functions are not being run because the logic is stuck in the countDown function
+
       // Stop the timer, show a message, disable inputs
       timeUp();
-      
+
       // Store inputs in the round's answers
       // UPDATE! - WE NOW RECORD ANSWERS ON EACH KEYSTROKE AND ONLY WHILE THERE IS TIME REMAINING ON THE CLOCK
       // getAnswers();
 
       // Ajax to auto-score blank answers or ones not starting with the round letter
       autoRejectAnswers();
-
+  
       // Button for player to submit their answer rejections
       finishScoringButton();
+      
     } 
     // else {
     //   submitFinalScores();
@@ -134,7 +137,10 @@ $(document).ready(function(){
     } else if (round.timeLeft === 0) {
         timer.text(":0" + round.timeLeft);
         timeUp();
-        render();
+
+        //TODO render below renders an all new list on screen and it should not!
+
+        // render();
     } else if(round.timeLeft < 10) {
       timer.text(":0" + round.timeLeft);
     } else {
