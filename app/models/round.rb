@@ -22,13 +22,12 @@ class Round < ActiveRecord::Base
   end
 
   def letter=(letter)
-    # binding.pry
     $redis.hset(self.id, "letter", letter)
     @letter = letter
   end
   
   def random_letter_die
-    letter = @letter_set.sample
+    self.letter = @letter_set.sample
   end
 
   def auto_reject(player, answers)
