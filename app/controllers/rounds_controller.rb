@@ -21,10 +21,6 @@ class RoundsController < ApplicationController
     render json: {letter: letter}
   end
 
-  # def find_player
-  #   player = @round.player
-  # end
-
   def auto_reject
     @round = Round.find(params[:id])
     @scores = @round.auto_reject(params["player"], params["answers"])

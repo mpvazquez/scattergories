@@ -7,12 +7,8 @@ class Round < ActiveRecord::Base
     @scores = []
     alphabet = ("a".."z").to_a
     unused_letters = ["q", "u", "v", "x", "y", "z"]
-
-    # @random_letter = alphabet - unused_letters
-    # self.after_initialize_letter
-    # $letter = @random_letter.sample
-    # $redis.HSET(round.id, "letter", @letter);
     @letter_set = alphabet - unused_letters
+
     @number = 1
     @letter
   end
@@ -33,6 +29,7 @@ class Round < ActiveRecord::Base
   def auto_reject(player, answers)
     # self.after_initialize
     (0..11).each do |index|
+      binding.pry
       # TODO Record each answer on Redis
       if answers[index].to_s == "" || answers[index].to_s.first.downcase != letter
         self.set_score(index, 0)
@@ -68,6 +65,4 @@ class Round < ActiveRecord::Base
     $redis.HSET(self.id, "category", @pick_category)
     return $redis.smembers(@pick_category)
   end
-
-  
 end
