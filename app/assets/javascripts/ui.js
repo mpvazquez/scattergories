@@ -160,14 +160,31 @@ $(document).ready(function(){
   function autoRejectAnswers() {
     $.ajax({
       dataType: "json",
-      url: "auto_reject",
-      data: {answers: round.answers, id: window.location.pathname.replace("/rounds/", "")},
+      url: window.location.pathname.replace("/rounds/", "") + "/auto_reject",
+      data: {answers: round.answers, player: round.player},
       success: function(success) {
+        console.log(success);
         for (var j = 0; j < 12; j++) {
           // Update the JS model scores
           round.scores[j] = success["scores"][j];
         }
-        addRejectButtons();
+          if (round.player < (round.numberOfPlayers - 1)) {
+            timer.text(":0" + round.timeLeft);
+            round.player++;
+            console.log("in the success function – player is: " + round.player);
+            timeUp();
+            $(".playcards").empty();
+            render();
+          }
+
+          else {
+            timer.text(":0" + round.timeLeft);
+            console.log("in the success function – player is: " + round.player);
+            timeUp();
+        // Note:  need to add this somewhere else
+        // addRejectButtons();
+            
+          }
       }
     });
   }
