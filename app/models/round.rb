@@ -21,12 +21,16 @@ class Round < ActiveRecord::Base
     @letter
   end
 
+  # def player=(player)
+  #   @player = $redis.HSET(self.id, "player#{player}")
+  # end
+
   def letter
     @letter = $redis.hget(self.id, "letter") || random_letter_die
   end
 
   def letter=(letter)
-    binding.pry
+    # binding.pry
     $redis.hset(self.id, "letter", letter)
     @letter = letter
   end
