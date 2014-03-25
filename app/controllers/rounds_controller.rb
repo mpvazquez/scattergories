@@ -26,7 +26,7 @@ class RoundsController < ApplicationController
   # end
 
   def auto_reject
-    @scores = @round.auto_reject(params["answers"])
+    @scores = @round.auto_reject(params["player"], params["answers"])
     render json: {scores: @scores}
   end
 
