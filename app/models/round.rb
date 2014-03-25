@@ -29,14 +29,15 @@ class Round < ActiveRecord::Base
     binding.pry
     $redis.hset(self.id, "letter", letter)
     @letter = letter
+    binding.pry
   end
   
   def random_letter_die
-    letter = @letter_set.sample
+    self.letter = @letter_set.sample
   end
 
-  def auto_reject(answers)
-    # self.after_initialize
+  def auto_reject(player, answers)
+    binding.pry
     (0..11).each do |index|
       # TODO Record each answer on Redis
       if answers[index].to_s == "" || answers[index].to_s.first.downcase != letter

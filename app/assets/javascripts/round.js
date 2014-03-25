@@ -7,12 +7,13 @@ function Round(categoryList){
   this.categoryList = categoryList;
   this.timeLeft = 6;
   this.answers = [];
-  this.answersObject = {};
+  // this.answersObject = {};
   this.scores = [];
-  this.scoresObject = {};
+  // this.scoresObject = {};
   this.finalScore = 0;
   this.timerStarted = false;
   this.player = 0;
+  this.numberOfPlayers = 2;
 
   // this.finishedScoring = false;
 }
