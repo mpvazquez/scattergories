@@ -100,7 +100,6 @@ $(document).ready(function(){
       // Event listener to record answers as they're typed
       input.on("keyup", function(e) {
         round.submitAnswer(e.target.id.replace("answer-", ""), input.val());
-        console.log(input.val());
       });
 
       input.appendTo("#slot-"+n);
@@ -138,7 +137,9 @@ $(document).ready(function(){
     } else if (round.timeLeft === 0) {
         timer.text(":0" + round.timeLeft);
         timeUp();
-        autoRejectAnswers();
+
+        //TODO render below renders an all new list on screen and it should not!
+
         // render();
     } else if(round.timeLeft < 10) {
       timer.text(":0" + round.timeLeft);

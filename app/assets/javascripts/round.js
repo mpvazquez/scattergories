@@ -51,7 +51,6 @@ Round.prototype.startTimer = function(){
 Round.prototype.submitAnswer = function(answerNumber, answerText) {
   if (this.timeLeft > 0) {
     this.answers[answerNumber] = answerText;
-    
   }
 };
 

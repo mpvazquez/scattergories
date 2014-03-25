@@ -4,7 +4,7 @@ class Round < ActiveRecord::Base
   attr_accessor :letter_set
 
   after_initialize do |user|
-    @scores = []
+    @scores = {}
     alphabet = ("a".."z").to_a
     unused_letters = ["q", "u", "v", "x", "y", "z"]
     @letter_set = alphabet - unused_letters
@@ -29,16 +29,16 @@ class Round < ActiveRecord::Base
   def auto_reject(player, answers)
     # self.after_initialize
     (0..11).each do |index|
-      binding.pry
       # TODO Record each answer on Redis
       if answers[index].to_s == "" || answers[index].to_s.first.downcase != letter
         self.set_score(index, 0)
       else
         self.set_score(index, 1)
       end
-
+      
       $redis.HSET(self.id, "player#{player}", self.scores[index])
       $redis.HSET(self.id, "player#{player}", answers[index].to_s)
+      binding.pry
     end
     self.scores
   end
